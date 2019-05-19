@@ -23,6 +23,12 @@
 			<input type="number" id="year" th:field="*{year}" />
 			<div style="clear: both; display: block; height: 10px;"></div>
 
+		  	<label for="deplist">Category</label>
+			 <select id="deplist" th:field="*{category}" class="form-control">
+       			<option th:each="category: ${categorys}" th:value="${category.categoryId}" th:text="${category.name}"></option>
+    		</select>
+
+			<div style="clear: both; display: block; height: 10px;"></div>
 			<input type="submit" value="Save" class="btn btn-success" ></input>
 		</form>
 		<div style="clear: both; display: block; height: 10px;"></div>

@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import haagahelia.bookstore.domain.Book;
 import haagahelia.bookstore.domain.BookRepository;
+import haagahelia.bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 
 	@Autowired
 	private BookRepository repository;
+	
+	@Autowired
+	private CategoryRepository crepository; 
 	
 	@RequestMapping("/booklist")
 	public String bookList(Model model) {
@@ -25,6 +29,7 @@ public class BookController {
     @RequestMapping(value = "/add")
     public String addStudent(Model model){
     	model.addAttribute("book", new Book());
+    	model.addAttribute("categorys", crepository.findAll());
         return "addbook";
     }     
     
