@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>Server Programming with Spring Boot</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,7 +17,7 @@
 			    <th>ISBN</th>
 			    <th>Year</th>
 			    <th>Category</th>
-			    <th></th>
+		    <th sec:authorize="hasAuthority('ADMIN')"> </th>
 			</tr>  
 
 				<tr th:each = "book: ${book}">
@@ -26,7 +26,7 @@
 					<td th:text="${book.code}"></td>
 					<td th:text="${book.year}"></td>
 					<td th:text="${book.category.name}"></td>
-	 				<td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>    		
+ 					<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Delete</a></td>    		
 				</tr>
 			</tbody>
 		</table>

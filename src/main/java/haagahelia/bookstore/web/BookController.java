@@ -1,6 +1,7 @@
 package haagahelia.bookstore.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,14 @@ public class BookController {
 	@Autowired
 	private CategoryRepository crepository; 
 	
-	@RequestMapping("/booklist")
+	// Show all students
+    @RequestMapping(value="/login")
+    public String login() {	
+        return "login";
+    }	
+    
+    
+	@RequestMapping("/")
 	public String bookList(Model model) {
 		model.addAttribute("book", repository.findAll());
 		return "booklist";
@@ -38,7 +46,8 @@ public class BookController {
         repository.save(book);
         return "redirect:booklist";
     }    
-
+    
+    @PreAuthorize("hasAuthority('ADMIN')") // only for admin user
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteBook(@PathVariable("id") Long bookId, Model model) {
     	repository.deleteById(bookId);
